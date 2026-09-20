@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>با موادی که داری چی بپزم؟</title>
+  <meta name="description" content="مواد اولیه‌ای که در خانه داری وارد کن تا غذاهای مناسب را پیدا کنیم.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('pantry.theme');
+        if (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) t = 'shab';
+        if (t && t !== 'sabz') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+    :root {
+      --paper: #F1F5EC;
+      --card: #FFFFFF;
+      --ink: #1D2A21;
+      --ink-soft: #55645A;
+      --herb: #2D6A4F;
+      --herb-dark: #1F4D39;
+      --herb-soft: #DDEBDD;
+      --saffron: #F0B429;
+      --saffron-soft: #FCEFC7;
+      --tomato: #B5432E;
+      --tomato-soft: #F8E1DB;
+      --line: #D3DCCB;
+      --orange: #E2792B; --orange-soft: #FBE2CC;
+      --turquoise: #1F8A8A; --turquoise-soft: #D7EEEC;
+      --plum: #6B3E75; --plum-soft: #EBDDF0;
+      --pomegranate: #A8324A; --pomegranate-soft: #F6DCE2;
+      --sky: #3F7CAC; --sky-soft: #DCE9F4;
+      --primary: #2D6A4F; --primary-hover: #1F4D39; --primary-soft: #DDEBDD; --primary-text: #1F4D39;
+      --on-primary: #FFFFFF; --on-tone: #FFFFFF;
+      --accent: #F0B429; --accent-soft: #FCEFC7;
+      --mid-text: #B45A14;
+      --radius: 14px;
+      --font: "Vazirmatn", Tahoma, "Segoe UI", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    a { color: var(--primary-text); }
+    button, input { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+    [hidden] { display: none !important; }
+
+    .tile-strip {
+      height: 6px;
+      background: linear-gradient(to left,
+        var(--herb) 0 16.66%, var(--saffron) 0 33.33%, var(--orange) 0 50%,
+        var(--pomegranate) 0 66.66%, var(--plum) 0 83.33%, var(--turquoise) 0);
+    }
+    .tone-0 { --tone: #D2691A; --tone-soft: var(--orange-soft); }
+    .tone-1 { --tone: var(--turquoise); --tone-soft: var(--turquoise-soft); }
+    .tone-2 { --tone: var(--plum); --tone-soft: var(--plum-soft); }
+    .tone-3 { --tone: var(--pomegranate); --tone-soft: var(--pomegranate-soft); }
+    .tone-4 { --tone: var(--sky); --tone-soft: var(--sky-soft); }
+    .tone-5 { --tone: #A67800; --tone-soft: var(--saffron-soft); }
+
+    .site-header {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.15rem;
+      text-decoration: none;
+      color: var(--primary-text);
+    }
+    main { max-width: 1040px; margin: 0 auto; padding: 8px 18px 56px; }
+    .site-footer {
+      max-width: 1040px; margin: 0 auto; padding: 24px 18px 40px;
+      color: var(--ink-soft); font-size: .85rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 7.5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.35;
+      margin: 12px 0 8px;
+      letter-spacing: -0.01em;
+    }
+    h1:focus { outline: none; }
+    h2 { font-size: 1.25rem; margin: 0 0 12px; }
+    .lead { font-size: 1.05rem; color: var(--ink-soft); margin: 0 0 24px; max-width: 34em; }
+
+    /* --- Home --- */
+    .picker {
+      background: var(--card);
+      border: 2px solid var(--ink);
+      border-radius: 18px;
+      padding: 18px;
+      max-width: 680px;
+      box-shadow: 6px 6px 0 var(--accent);
+    }
+    .field { position: relative; }
+    .field label { display: block; font-weight: 700; margin-bottom: 6px; }
+    .field-row { display: flex; gap: 8px; }
+    .field input {
+      flex: 1; min-width: 0;
+      min-height: 52px;
+      padding: 8px 14px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+    }
+    .field input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px var(--primary-soft); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 52px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn.secondary { background: var(--primary-soft); color: var(--primary-text); }
+    .btn.secondary:hover { background: color-mix(in srgb, var(--primary-soft) 85%, var(--ink)); }
+    .btn.big { width: 100%; min-height: 58px; font-size: 1.1rem; margin-top: 18px; }
+
+    .suggest {
+      list-style: none; margin: 6px 0 0; padding: 6px;
+      position: absolute; inset-inline: 0; z-index: 10;
+      background: var(--card); border: 2px solid var(--ink); border-radius: 12px;
+      max-height: 260px; overflow: auto;
+    }
+    .suggest li {
+      padding: 10px 12px; border-radius: 8px; cursor: pointer; min-height: 44px;
+      display: flex; align-items: center;
+    }
+    .suggest li[aria-selected="true"], .suggest li:hover { background: var(--accent-soft); }
+
+    .msg { min-height: 1.6em; margin: 8px 2px 0; font-size: .95rem; color: var(--ink-soft); }
+    .msg.error { color: var(--tomato); font-weight: 500; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--tone-soft, var(--saffron-soft));
+      border: 1.5px solid var(--tone, var(--saffron));
+      border-radius: 999px;
+      padding: 4px 6px 4px 14px;
+      font-weight: 500;
+    }
+    .chip.plain { padding: 4px 14px; }
+    .chip button {
+      width: 32px; height: 32px; border-radius: 50%; border: 0;
+      background: transparent; cursor: pointer; font-size: 1.2rem; line-height: 1;
+      color: var(--ink);
+    }
+    .chip button:hover { background: rgba(0,0,0,.08); }
+    .chips-empty { color: var(--ink-soft); margin-top: 12px; }
+
+    .quick { margin-top: 20px; }
+    .quick p { margin: 0 0 8px; font-weight: 700; font-size: .95rem; }
+    .quick-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .quick-btn {
+      min-height: 44px; padding: 0 16px; border-radius: 999px;
+      border: 1.5px dashed var(--tone, var(--primary)); background: transparent; color: var(--ink);
+      cursor: pointer;
+    }
+    .quick-btn:hover { background: var(--tone-soft, var(--primary-soft)); }
+    .quick-btn[disabled] { opacity: .45; cursor: default; border-style: solid; }
+
+    /* --- Results --- */
+    .results-head { margin-bottom: 20px; }
+    .results-head .chips { margin-top: 10px; }
+    .head-actions { margin-top: 14px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 18px; padding: 0; list-style: none; margin: 0; }
+    @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .card {
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-top: 6px solid var(--tone, var(--primary));
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex; flex-direction: column; height: 100%;
+    }
+    .card-body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card h3 { margin: 0; font-size: 1.15rem; }
+    .card p { margin: 0; color: var(--ink-soft); font-size: .93rem; line-height: 1.7; }
+    .card .btn { margin-top: auto; min-height: 46px; }
+
+    .thumb {
+      display: grid; place-items: center;
+      aspect-ratio: 16 / 10;
+      font-size: 4.2rem;
+      width: 100%;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb.large { aspect-ratio: 16 / 9; font-size: 6.5rem; border-radius: var(--radius); overflow: hidden; }
+
+    .meter { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+    .meter > span { display: block; height: 100%; background: var(--herb); }
+    .meter.high > span { background: var(--herb); }
+    .meter.mid > span { background: var(--orange); }
+    .meter.low > span { background: var(--pomegranate); }
+    .match-line strong.high { color: var(--herb-dark); }
+    .match-line strong.mid { color: var(--mid-text); }
+    .match-line strong.low { color: var(--pomegranate); }
+    .match-line { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: .92rem; }
+    .match-line strong { font-size: 1.05rem; }
+    .missing { font-size: .9rem; }
+    .missing b { color: var(--tomato); font-weight: 700; }
+    .complete { color: var(--herb-dark); font-weight: 700; font-size: .9rem; }
+
+    /* --- Recipe --- */
+    .recipe { max-width: 760px; }
+    .back { display: inline-block; margin: 6px 0 12px; }
+    .recipe .thumb { margin-bottom: 18px; }
+    .match-box {
+      background: var(--herb-soft); border-radius: var(--radius);
+      padding: 12px 16px; margin: 16px 0 24px;
+    }
+    .ing-list { list-style: none; margin: 0 0 28px; padding: 0; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--radius); }
+    .ing-list li {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px; border-bottom: 1px solid var(--line);
+    }
+    .ing-list li:last-child { border-bottom: 0; }
+    .ing-name { font-weight: 500; }
+    .ing-name::before {
+      content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--tone, var(--primary)); margin-inline-end: 8px;
+    }
+    .recipe h2 { border-inline-start: 6px solid var(--tone, var(--primary)); padding-inline-start: 10px; }
+    .match-box.high { background: var(--herb-soft); }
+    .match-box.mid { background: var(--orange-soft); }
+    .match-box.low { background: var(--pomegranate-soft); }
+    .ing-amount { color: var(--ink-soft); font-size: .92rem; margin-inline-start: auto; }
+    .badge {
+      flex: none; font-size: .78rem; font-weight: 700;
+      padding: 1px 10px; border-radius: 99px;
+    }
+    .badge.have { background: var(--herb-soft); color: var(--herb-dark); }
+    .badge.lack { background: var(--tomato-soft); color: var(--tomato); }
+    .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 12px 52px 12px 0;
+      margin-bottom: 4px;
+    }
+    .steps li::before {
+      content: counter(step, persian);
+      position: absolute; right: 0; top: 10px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--tone, var(--ink)); color: var(--on-tone);
+      display: grid; place-items: center; font-weight: 700;
+    }
+    @counter-style persian { system: numeric; symbols: "۰" "۱" "۲" "۳" "۴" "۵" "۶" "۷" "۸" "۹"; }
+
+    /* --- States --- */
+    .state-box {
+      background: var(--card); border: 2px dashed var(--line); border-radius: var(--radius);
+      padding: 28px 20px; text-align: center; max-width: 560px;
+    }
+    .state-box p { margin: 0 0 16px; }
+    .state-box code {
+      direction: ltr; unicode-bidi: isolate; display: inline-block;
+      background: var(--paper); padding: 2px 10px; border-radius: 8px; font-size: .9rem;
+    }
+    .loading { color: var(--ink-soft); padding: 40px 0; }
+
+
+    /* --- AI --- */
+    .header-tools { display: flex; align-items: center; gap: 8px; }
+    @media (max-width: 480px) { .hide-sm { display: none; } }
+    .ai-box { margin-top: 44px; padding-top: 24px; border-top: 2px dashed var(--line); }
+    .ai-box .lead { margin-bottom: 14px; }
+    .ai-out { display: grid; gap: 16px; margin-top: 16px; }
+    .ai-card .card-body { gap: 10px; }
+    .ai-card .ing-list { margin-bottom: 8px; }
+    .ai-card .steps li { padding-top: 8px; padding-bottom: 8px; }
+    .ai-dialog {
+      width: min(460px, calc(100% - 32px)); padding: 20px;
+      background: var(--card); color: var(--ink);
+      border: 2px solid var(--ink); border-radius: 16px;
+    }
+    .ai-dialog::backdrop { background: rgba(0, 0, 0, .5); }
+    .ai-dialog h2 { margin-bottom: 4px; }
+    .ai-dialog .hint { margin: 0 0 14px; color: var(--ink-soft); font-size: .9rem; }
+    .ai-row { margin-bottom: 12px; }
+    .ai-row label { display: block; font-weight: 700; margin-bottom: 4px; }
+    .ai-row input {
+      width: 100%; min-height: 48px; padding: 8px 12px;
+      border: 2px solid var(--line); border-radius: 12px;
+      background: var(--card); color: var(--ink);
+    }
+    .ai-row input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px var(--primary-soft); }
+    .ai-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+    /* --- Themes --- */
+    html[data-theme="anar"] {
+      --paper: #FBF1F0; --ink: #2B1A1D; --ink-soft: #6B5558; --line: #E9D3D3;
+      --primary: #A8324A; --primary-hover: #7C2036; --primary-soft: #F6DCE2; --primary-text: #7C2036;
+      --accent: #E9A23B; --accent-soft: #FCEBCF;
+    }
+    html[data-theme="firouzeh"] {
+      --paper: #EEF6F5; --ink: #14292A; --ink-soft: #4F6768; --line: #CDE0DE;
+      --primary: #17797A; --primary-hover: #0F5A5B; --primary-soft: #D3ECEA; --primary-text: #0F5A5B;
+      --accent: #F0B429; --accent-soft: #FCEFC7;
+    }
+    html[data-theme="bademjan"] {
+      --paper: #F6F1F8; --ink: #251A2A; --ink-soft: #66576C; --line: #DDD0E2;
+      --primary: #6B3E75; --primary-hover: #4E2A57; --primary-soft: #EBDDF0; --primary-text: #4E2A57;
+      --accent: #F0B429; --accent-soft: #FCEFC7;
+    }
+    html[data-theme="zaferan"] {
+      --paper: #FBF6E8; --ink: #2A2210; --ink-soft: #6B5F3F; --line: #E8DDB9;
+      --primary: #9A6200; --primary-hover: #744A00; --primary-soft: #FCEFC7; --primary-text: #744A00;
+      --accent: #2D6A4F; --accent-soft: #DDEBDD;
+    }
+    html[data-theme="shab"] {
+      color-scheme: dark;
+      --paper: #15201A; --card: #1E2B24; --ink: #EAF2EC; --ink-soft: #A9B9AF; --line: #34463C;
+      --primary: #2F8A63; --primary-hover: #3FA679; --primary-soft: #23392E; --primary-text: #9BE0BD;
+      --on-primary: #FFFFFF; --on-tone: #10201A;
+      --accent: #F0B429; --accent-soft: #3A3116; --mid-text: #F0A45D;
+      --herb: #4FBF8A; --herb-dark: #9BE0BD; --herb-soft: #22402F;
+      --tomato: #F08A75; --tomato-soft: #4A2721;
+      --saffron: #F0B429; --saffron-soft: #3A3116;
+      --orange: #F09A55; --orange-soft: #4A2E17;
+      --turquoise: #3FB6B6; --turquoise-soft: #173F3F;
+      --plum: #B98AC6; --plum-soft: #3A2643;
+      --pomegranate: #E5687F; --pomegranate-soft: #4A2029;
+      --sky: #6FA8D6; --sky-soft: #1D3446;
+    }
+    html[data-theme="shab"] .tone-0 { --tone: #F09A55; }
+    html[data-theme="shab"] .tone-5 { --tone: #E2B93B; }
+
+    /* --- Theme switcher --- */
+    .theme-switch { position: relative; }
+    .theme-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      min-height: 44px; padding: 0 14px;
+      border: 1.5px solid var(--line); border-radius: 999px;
+      background: var(--card); cursor: pointer; font-weight: 500;
+    }
+    .theme-btn:hover { border-color: var(--primary); }
+    .theme-panel {
+      position: absolute; inset-inline-end: 0; top: calc(100% + 8px); z-index: 30;
+      width: 220px; padding: 8px;
+      background: var(--card); border: 2px solid var(--ink); border-radius: 14px;
+      display: grid; gap: 2px;
+    }
+    .theme-opt {
+      display: flex; align-items: center; gap: 10px; width: 100%;
+      min-height: 44px; padding: 0 10px; border: 0; border-radius: 10px;
+      background: transparent; cursor: pointer; text-align: start;
+    }
+    .theme-opt:hover { background: var(--accent-soft); }
+    .theme-opt[aria-pressed="true"] { background: var(--primary-soft); font-weight: 700; }
+    .swatch {
+      flex: none; width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid var(--ink);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .meter > span { transition: width .4s ease; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#/">چی بپزم؟</a>
+    <div class="header-tools" id="header-tools"><div class="theme-switch" id="theme-switch"></div></div>
+  </header>
+
+  <div class="tile-strip" aria-hidden="true"></div>
+  <main id="app">
+    <p class="loading">در حال بارگذاری…</p>
+  </main>
+
+  <footer class="site-footer">
+    غذاها و مقادیر نمونه‌اند و در بخش recipe-data همین فایل قابل ویرایش هستند.
+  </footer>
+
+  <noscript><p style="padding:18px">برای استفاده از این سایت جاوااسکریپت باید فعال باشد.</p></noscript>
+  <script id="recipe-data" type="application/json">
+{
+ "popular": [
+  "egg",
+  "tomato",
+  "onion",
+  "potato",
+  "rice",
+  "pasta",
+  "chicken",
+  "cheese"
+ ],
+ "ingredients": [
+  {
+   "id": "egg",
+   "name": "تخم‌مرغ",
+   "aliases": [
+    "تخم مرغ",
+    "تخم"
+   ]
+  },
+  {
+   "id": "tomato",
+   "name": "گوجه‌فرنگی",
+   "aliases": [
+    "گوجه",
+    "گوجه فرنگی"
+   ]
+  },
+  {
+   "id": "onion",
+   "name": "پیاز"
+  },
+  {
+   "id": "potato",
+   "name": "سیب‌زمینی",
+   "aliases": [
+    "سیب زمینی"
+   ]
+  },
+  {
+   "id": "salt",
+   "name": "نمک"
+  },
+  {
+   "id": "oil",
+   "name": "روغن",
+   "aliases": [
+    "روغن مایع"
+   ]
+  },
+  {
+   "id": "garlic",
+   "name": "سیر"
+  },
+  {
+   "id": "blackpepper",
+   "name": "فلفل سیاه"
+  },
+  {
+   "id": "turmeric",
+   "name": "زردچوبه"
+  },
+  {
+   "id": "paste",
+   "name": "رب گوجه‌فرنگی",
+   "aliases": [
+    "رب",
+    "رب گوجه"
+   ]
+  },
+  {
+   "id": "rice",
+   "name": "برنج"
+  },
+  {
+   "id": "pasta",
+   "name": "ماکارونی",
+   "aliases": [
+    "اسپاگتی",
+    "پاستا"
+   ]
+  },
+  {
+   "id": "bread",
+   "name": "نان"
+  },
+  {
+   "id": "cheese",
+   "name": "پنیر"
+  },
+  {
+   "id": "milk",
+   "name": "شیر"
+  },
+  {
+   "id": "flour",
+   "name": "آرد"
+  },
+  {
+   "id": "sugar",
+   "name": "شکر"
+  },
+  {
+   "id": "butter",
+   "name": "کره"
+  },
+  {
+   "id": "chicken",
+   "name": "مرغ",
+   "aliases": [
+    "سینه مرغ",
+    "ران مرغ"
+   ]
+  },
+  {
+   "id": "mince",
+   "name": "گوشت چرخ‌کرده",
+   "aliases": [
+    "گوشت چرخ کرده",
+    "گوشت"
+   ]
+  },
+  {
+   "id": "lentil",
+   "name": "عدس"
+  },
+  {
+   "id": "carrot",
+   "name": "هویج"
+  },
+  {
+   "id": "zucchini",
+   "name": "کدو سبز",
+   "aliases": [
+    "کدو"
+   ]
+  },
+  {
+   "id": "eggplant",
+   "name": "بادمجان"
+  },
+  {
+   "id": "bellpepper",
+   "name": "فلفل دلمه‌ای",
+   "aliases": [
+    "فلفل دلمه"
+   ]
+  },
+  {
+   "id": "mushroom",
+   "name": "قارچ"
+  },
+  {
+   "id": "spinach",
+   "name": "اسفناج"
+  },
+  {
+   "id": "yogurt",
+   "name": "ماست"
+  },
+  {
+   "id": "cucumber",
+   "name": "خیار"
+  },
+  {
+   "id": "lemon",
+   "name": "لیمو ترش",
+   "aliases": [
+    "لیمو",
+    "آبلیمو"
+   ]
+  },
+  {
+   "id": "mint",
+   "name": "نعناع"
+  }
+ ],
+ "recipes": [
+  {
+   "id": "omelet-tomato",
+   "name": "املت گوجه",
+   "emoji": "🍳",
+   "color": "#FBE3D6",
+   "image": "",
+   "description": "صبحانه یا شام سریع با گوجه‌ی له‌شده و تخم‌مرغ نیمه‌سفت.",
+   "ingredients": [
+    {
+     "id": "egg",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "tomato",
+     "amount": "۳ عدد متوسط"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد کوچک"
+    },
+    {
+     "id": "oil",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    },
+    {
+     "id": "blackpepper",
+     "amount": "کمی"
+    }
+   ],
+   "steps": [
+    "پیاز را خرد کنید و در روغن داغ تا نرم شدن تفت دهید.",
+    "گوجه‌ها را پوست بگیرید، ریز خرد کنید و به پیاز اضافه کنید.",
+    "درِ تابه را بگذارید تا گوجه آب بیندازد و آبش کم شود.",
+    "نمک و فلفل را اضافه کنید.",
+    "تخم‌مرغ‌ها را روی گوجه بشکنید و با درِ بسته ۳ تا ۴ دقیقه بپزید.",
+    "با نان داغ سرو کنید."
+   ]
+  },
+  {
+   "id": "fried-egg",
+   "name": "نیمرو",
+   "emoji": "🍳",
+   "color": "#FFF1C9",
+   "image": "",
+   "description": "ساده‌ترین غذای تخم‌مرغی؛ در کمتر از پنج دقیقه آماده است.",
+   "ingredients": [
+    {
+     "id": "egg",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "butter",
+     "amount": "۱ قاشق چای‌خوری"
+    },
+    {
+     "id": "salt",
+     "amount": "کمی"
+    }
+   ],
+   "steps": [
+    "کره را در تابه‌ی نچسب روی حرارت متوسط آب کنید.",
+    "تخم‌مرغ‌ها را به آرامی داخل تابه بشکنید.",
+    "درِ تابه را ببندید و ۲ تا ۳ دقیقه بپزید تا سفیده سفت شود.",
+    "نمک بپاشید و همان لحظه سرو کنید."
+   ]
+  },
+  {
+   "id": "kuku-sibzamini",
+   "name": "کوکو سیب‌زمینی",
+   "emoji": "🥔",
+   "color": "#F7E7B8",
+   "image": "",
+   "description": "کوکوی ترد و طلایی که هم گرم و هم سرد خوشمزه است.",
+   "ingredients": [
+    {
+     "id": "potato",
+     "amount": "۳ عدد متوسط"
+    },
+    {
+     "id": "egg",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد کوچک"
+    },
+    {
+     "id": "flour",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "turmeric",
+     "amount": "نصف قاشق چای‌خوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    },
+    {
+     "id": "oil",
+     "amount": "برای سرخ کردن"
+    }
+   ],
+   "steps": [
+    "سیب‌زمینی‌ها را بپزید، پوست بگیرید و با چنگال له کنید.",
+    "پیاز را رنده کنید و آبش را بگیرید.",
+    "تخم‌مرغ، آرد، زردچوبه و نمک را به مخلوط اضافه کنید و خوب ورز دهید.",
+    "کمی از مخلوط را در کف دست به شکل گرد و صاف در بیاورید.",
+    "در روغن داغ از دو طرف سرخ کنید تا طلایی شود.",
+    "روی دستمال کاغذی بگذارید تا روغن اضافه‌اش گرفته شود."
+   ]
+  },
+  {
+   "id": "mirza-ghasemi",
+   "name": "میرزا قاسمی",
+   "emoji": "🍆",
+   "color": "#E4DBF0",
+   "image": "",
+   "description": "غذای شمالی با بادمجان کبابی، سیر فراوان و گوجه.",
+   "ingredients": [
+    {
+     "id": "eggplant",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "tomato",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "garlic",
+     "amount": "۵ حبه"
+    },
+    {
+     "id": "egg",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "oil",
+     "amount": "۳ قاشق غذاخوری"
+    },
+    {
+     "id": "turmeric",
+     "amount": "نصف قاشق چای‌خوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    }
+   ],
+   "steps": [
+    "بادمجان‌ها را روی شعله یا داخل فر کباب کنید تا نرم شوند.",
+    "پوستشان را بگیرید و گوشتشان را ریز خرد کنید.",
+    "سیر را در روغن تفت دهید تا بوی خام آن برود.",
+    "گوجه‌های رنده‌شده و زردچوبه را اضافه کنید و بگذارید آبش کشیده شود.",
+    "بادمجان و نمک را اضافه کنید و ۱۰ دقیقه بپزید.",
+    "تخم‌مرغ‌ها را اضافه کنید و هم بزنید تا جا بیفتند."
+   ]
+  },
+  {
+   "id": "adas-polo",
+   "name": "عدس‌پلو",
+   "emoji": "🍚",
+   "color": "#F3E2C7",
+   "image": "",
+   "description": "پلوی مجلسی و مقوی با عدس و پیاز داغ.",
+   "ingredients": [
+    {
+     "id": "rice",
+     "amount": "۳ پیمانه"
+    },
+    {
+     "id": "lentil",
+     "amount": "۱ پیمانه"
+    },
+    {
+     "id": "onion",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "oil",
+     "amount": "۴ قاشق غذاخوری"
+    },
+    {
+     "id": "turmeric",
+     "amount": "۱ قاشق چای‌خوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    }
+   ],
+   "steps": [
+    "عدس را در آب و کمی نمک نیم‌پز کنید.",
+    "برنج را بشویید و در آب نمکی جوش نیم‌پز کنید، سپس آبکش کنید.",
+    "پیازها را نازک خرد کنید و در روغن با زردچوبه سرخ کنید.",
+    "ته قابلمه را روغن بریزید، لایه‌لایه برنج، عدس و پیاز داغ بچینید.",
+    "دم‌کنی بگذارید و ۴۵ دقیقه روی حرارت ملایم دم بکشد."
+   ]
+  },
+  {
+   "id": "pasta-tomato",
+   "name": "ماکارونی با سس گوجه",
+   "emoji": "🍝",
+   "color": "#FAD9CF",
+   "image": "",
+   "description": "ماکارونی با سس رب و سیر؛ سریع و سیرکننده.",
+   "ingredients": [
+    {
+     "id": "pasta",
+     "amount": "۲۵۰ گرم"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "garlic",
+     "amount": "۲ حبه"
+    },
+    {
+     "id": "paste",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "oil",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    },
+    {
+     "id": "blackpepper",
+     "amount": "کمی"
+    }
+   ],
+   "steps": [
+    "ماکارونی را در آب و نمک جوش بپزید و آبکش کنید.",
+    "پیاز خرد‌شده را در روغن تفت دهید، سیر را اضافه کنید.",
+    "رب را اضافه کنید و ۲ دقیقه بچرخانید تا بوی خامش برود.",
+    "نصف لیوان آب ماکارونی اضافه کنید و سس را ۵ دقیقه بجوشانید.",
+    "ماکارونی و فلفل را داخل سس بریزید و مخلوط کنید."
+   ]
+  },
+  {
+   "id": "pasta-mince",
+   "name": "ماکارونی با گوشت چرخ‌کرده",
+   "emoji": "🍝",
+   "color": "#F5D2C4",
+   "image": "",
+   "description": "نسخه‌ی پرگوشت ماکارونی برای شام خانوادگی.",
+   "ingredients": [
+    {
+     "id": "pasta",
+     "amount": "۳۰۰ گرم"
+    },
+    {
+     "id": "mince",
+     "amount": "۲۰۰ گرم"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "garlic",
+     "amount": "۲ حبه"
+    },
+    {
+     "id": "paste",
+     "amount": "۳ قاشق غذاخوری"
+    },
+    {
+     "id": "oil",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    },
+    {
+     "id": "blackpepper",
+     "amount": "کمی"
+    }
+   ],
+   "steps": [
+    "ماکارونی را در آب نمکی بپزید و آبکش کنید.",
+    "پیاز را در روغن تفت دهید و گوشت چرخ‌کرده را اضافه کنید تا رنگ عوض کند.",
+    "سیر، رب، نمک و فلفل را اضافه کنید و ۱۰ دقیقه با کمی آب بپزید.",
+    "ماکارونی را با سس مخلوط کنید و ۵ دقیقه دم بگذارید."
+   ]
+  },
+  {
+   "id": "cheese-toast",
+   "name": "ساندویچ پنیر تابه‌ای",
+   "emoji": "🥪",
+   "color": "#FFF0BF",
+   "image": "",
+   "description": "نان برشته با پنیر آب‌شده، مناسب عصرانه.",
+   "ingredients": [
+    {
+     "id": "bread",
+     "amount": "۴ برش"
+    },
+    {
+     "id": "cheese",
+     "amount": "۱۰۰ گرم"
+    },
+    {
+     "id": "butter",
+     "amount": "۱ قاشق غذاخوری"
+    }
+   ],
+   "steps": [
+    "پنیر را ورقه کنید و بین دو برش نان بگذارید.",
+    "کره را روی سطح بیرونی نان‌ها بمالید.",
+    "در تابه‌ی داغ از هر طرف ۲ دقیقه بپزید تا پنیر آب شود و نان طلایی شود.",
+    "به‌صورت مورب برش بزنید و گرم سرو کنید."
+   ]
+  },
+  {
+   "id": "potato-soup",
+   "name": "سوپ سیب‌زمینی",
+   "emoji": "🍲",
+   "color": "#F4E9CF",
+   "image": "",
+   "description": "سوپ غلیظ و گرم با سیب‌زمینی، هویج و کمی شیر.",
+   "ingredients": [
+    {
+     "id": "potato",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "carrot",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "butter",
+     "amount": "۱ قاشق غذاخوری"
+    },
+    {
+     "id": "milk",
+     "amount": "۱ لیوان"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    },
+    {
+     "id": "blackpepper",
+     "amount": "کمی"
+    }
+   ],
+   "steps": [
+    "پیاز خرد‌شده را در کره تفت دهید.",
+    "سیب‌زمینی و هویج را خرد کنید و اضافه کنید.",
+    "۴ لیوان آب بریزید و تا نرم شدن سبزیجات بپزید.",
+    "با گوشت‌کوب یا مخلوط‌کن نصف سوپ را له کنید.",
+    "شیر، نمک و فلفل را اضافه کنید و ۵ دقیقه دیگر بجوشانید."
+   ]
+  },
+  {
+   "id": "french-fries",
+   "name": "سیب‌زمینی سرخ‌کرده",
+   "emoji": "🍟",
+   "color": "#FFE9A8",
+   "image": "",
+   "description": "ساده، ترد و همیشه محبوب.",
+   "ingredients": [
+    {
+     "id": "potato",
+     "amount": "۴ عدد"
+    },
+    {
+     "id": "oil",
+     "amount": "به اندازه‌ی سرخ کردن"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    }
+   ],
+   "steps": [
+    "سیب‌زمینی‌ها را پوست بگیرید و به شکل انگشتی ببرید.",
+    "۱۵ دقیقه در آب سرد بگذارید و خوب خشک کنید.",
+    "در روغن داغ سرخ کنید تا طلایی و ترد شود.",
+    "روی دستمال کاغذی بریزید و نمک بزنید."
+   ]
+  },
+  {
+   "id": "zucchini-egg",
+   "name": "کدو تخم‌مرغی",
+   "emoji": "🥒",
+   "color": "#DCEBCB",
+   "image": "",
+   "description": "خوراک سبک و سریع با کدو سبز و تخم‌مرغ.",
+   "ingredients": [
+    {
+     "id": "zucchini",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "egg",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "oil",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "turmeric",
+     "amount": "نصف قاشق چای‌خوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    }
+   ],
+   "steps": [
+    "پیاز را در روغن تفت دهید و زردچوبه را اضافه کنید.",
+    "کدوها را حلقه‌ای یا رنده‌ای خرد کنید و به پیاز اضافه کنید.",
+    "درِ تابه را بگذارید تا کدو نرم شود.",
+    "نمک را اضافه کنید و تخم‌مرغ‌ها را روی کدو بشکنید.",
+    "بگذارید سفیده جا بیفتد و سپس سرو کنید."
+   ]
+  },
+  {
+   "id": "spinach-egg",
+   "name": "اسفناج و تخم‌مرغ",
+   "emoji": "🥬",
+   "color": "#D6E8C4",
+   "image": "",
+   "description": "خوراک سبز و مقوی برای وعده‌ی سبک.",
+   "ingredients": [
+    {
+     "id": "spinach",
+     "amount": "۱ بسته"
+    },
+    {
+     "id": "egg",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "garlic",
+     "amount": "۲ حبه"
+    },
+    {
+     "id": "oil",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    }
+   ],
+   "steps": [
+    "پیاز و سیر را در روغن تفت دهید.",
+    "اسفناج شسته و خرد‌شده را اضافه کنید تا آبش کم شود.",
+    "نمک بزنید و تخم‌مرغ‌ها را روی آن بشکنید.",
+    "با درِ بسته ۴ دقیقه بپزید و گرم سرو کنید."
+   ]
+  },
+  {
+   "id": "chicken-potato",
+   "name": "خوراک مرغ و سیب‌زمینی",
+   "emoji": "🍗",
+   "color": "#F8DCB8",
+   "image": "",
+   "description": "مرغ و سیب‌زمینی با سس رب و زردچوبه در یک قابلمه.",
+   "ingredients": [
+    {
+     "id": "chicken",
+     "amount": "۵۰۰ گرم"
+    },
+    {
+     "id": "potato",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "paste",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "oil",
+     "amount": "۳ قاشق غذاخوری"
+    },
+    {
+     "id": "turmeric",
+     "amount": "۱ قاشق چای‌خوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    },
+    {
+     "id": "blackpepper",
+     "amount": "کمی"
+    }
+   ],
+   "steps": [
+    "پیاز را خرد کنید و در روغن طلایی کنید.",
+    "مرغ، زردچوبه، نمک و فلفل را اضافه کنید و تفت دهید.",
+    "رب را اضافه کنید و کمی سرخ کنید.",
+    "دو لیوان آب بریزید و ۲۰ دقیقه با حرارت ملایم بپزید.",
+    "سیب‌زمینی‌های درشت‌خرد‌شده را اضافه کنید و ۲۵ دقیقه دیگر بپزید تا سس غلیظ شود."
+   ]
+  },
+  {
+   "id": "kotlet",
+   "name": "کتلت ساده",
+   "emoji": "🧆",
+   "color": "#EBD3BE",
+   "image": "",
+   "description": "کتلت گوشت و سیب‌زمینی، مناسب ساندویچ یا کنار برنج.",
+   "ingredients": [
+    {
+     "id": "mince",
+     "amount": "۳۰۰ گرم"
+    },
+    {
+     "id": "potato",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "egg",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "turmeric",
+     "amount": "نصف قاشق چای‌خوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    },
+    {
+     "id": "oil",
+     "amount": "برای سرخ کردن"
+    }
+   ],
+   "steps": [
+    "سیب‌زمینی را بپزید و له کنید؛ پیاز را رنده کنید و آبش را بگیرید.",
+    "گوشت، سیب‌زمینی، پیاز، تخم‌مرغ، زردچوبه و نمک را خوب ورز دهید.",
+    "مخلوط را ۳۰ دقیقه در یخچال بگذارید.",
+    "به شکل بیضی در بیاورید و در روغن داغ از دو طرف سرخ کنید."
+   ]
+  },
+  {
+   "id": "mast-o-khiar",
+   "name": "ماست و خیار",
+   "emoji": "🥣",
+   "color": "#E3F0EA",
+   "image": "",
+   "description": "خنک و سبک؛ کنار غذاهای گرم یا به‌تنهایی.",
+   "ingredients": [
+    {
+     "id": "yogurt",
+     "amount": "۲ پیمانه"
+    },
+    {
+     "id": "cucumber",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "mint",
+     "amount": "۱ قاشق غذاخوری خشک"
+    },
+    {
+     "id": "salt",
+     "amount": "کمی"
+    }
+   ],
+   "steps": [
+    "خیار را پوست بگیرید و ریز خرد کنید.",
+    "ماست را در ظرف بریزید و خیار را اضافه کنید.",
+    "نعناع و نمک را اضافه کنید و مخلوط کنید.",
+    "قبل از سرو ۱۰ دقیقه در یخچال بگذارید."
+   ]
+  },
+  {
+   "id": "pancake",
+   "name": "پنکیک",
+   "emoji": "🥞",
+   "color": "#FBE7C6",
+   "image": "",
+   "description": "پنکیک نرم و ساده برای صبحانه.",
+   "ingredients": [
+    {
+     "id": "flour",
+     "amount": "۱ پیمانه"
+    },
+    {
+     "id": "milk",
+     "amount": "۱ پیمانه"
+    },
+    {
+     "id": "egg",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "sugar",
+     "amount": "۱ قاشق غذاخوری"
+    },
+    {
+     "id": "butter",
+     "amount": "۱ قاشق غذاخوری"
+    }
+   ],
+   "steps": [
+    "آرد، شکر، شیر و تخم‌مرغ را مخلوط کنید تا خمیر یکدست شود.",
+    "کره را داخل تابه آب کنید.",
+    "با ملاقه مقداری خمیر داخل تابه بریزید.",
+    "وقتی روی سطح حباب افتاد، برگردانید و طرف دیگر را هم بپزید."
+   ]
+  },
+  {
+   "id": "shirazi-salad",
+   "name": "سالاد شیرازی",
+   "emoji": "🥗",
+   "color": "#E1EFC9",
+   "image": "",
+   "description": "سالاد خنک و ترش با خیار، گوجه و پیاز.",
+   "ingredients": [
+    {
+     "id": "cucumber",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "tomato",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد کوچک"
+    },
+    {
+     "id": "lemon",
+     "amount": "آب ۱ عدد"
+    },
+    {
+     "id": "salt",
+     "amount": "کمی"
+    },
+    {
+     "id": "mint",
+     "amount": "کمی خشک"
+    }
+   ],
+   "steps": [
+    "خیار، گوجه و پیاز را به مکعب‌های کوچک خرد کنید.",
+    "آب‌لیمو، نمک و نعناع را اضافه کنید.",
+    "مخلوط کنید و کمی صبر کنید تا طعم‌ها جا بیفتند."
+   ]
+  },
+  {
+   "id": "pepper-omelet",
+   "name": "املت فلفل دلمه‌ای",
+   "emoji": "🫑",
+   "color": "#F6DCC0",
+   "image": "",
+   "description": "املتی رنگارنگ با فلفل دلمه، گوجه و پیاز.",
+   "ingredients": [
+    {
+     "id": "bellpepper",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "egg",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "tomato",
+     "amount": "۲ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "oil",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    }
+   ],
+   "steps": [
+    "پیاز را در روغن تفت دهید.",
+    "فلفل دلمه‌ای خرد‌شده را اضافه کنید و ۵ دقیقه سرخ کنید.",
+    "گوجه‌ها را اضافه کنید و بگذارید نرم شوند.",
+    "نمک بزنید، تخم‌مرغ‌ها را بشکنید و با درِ بسته بپزید."
+   ]
+  },
+  {
+   "id": "mushroom-egg",
+   "name": "قارچ و تخم‌مرغ",
+   "emoji": "🍄",
+   "color": "#EADFD1",
+   "image": "",
+   "description": "قارچ سرخ‌شده با تخم‌مرغ؛ سبک و پرپروتئین.",
+   "ingredients": [
+    {
+     "id": "mushroom",
+     "amount": "۲۰۰ گرم"
+    },
+    {
+     "id": "egg",
+     "amount": "۳ عدد"
+    },
+    {
+     "id": "onion",
+     "amount": "۱ عدد"
+    },
+    {
+     "id": "oil",
+     "amount": "۲ قاشق غذاخوری"
+    },
+    {
+     "id": "salt",
+     "amount": "به میزان لازم"
+    },
+    {
+     "id": "blackpepper",
+     "amount": "کمی"
+    }
+   ],
+   "steps": [
+    "قارچ‌ها را ورقه کنید.",
+    "پیاز را تفت دهید، سپس قارچ را اضافه کنید تا آبش کشیده شود.",
+    "نمک و فلفل بزنید.",
+    "تخم‌مرغ‌ها را بشکنید و بعد از سفت شدن سفیده، سرو کنید."
+   ]
+  },
+  {
+   "id": "shir-berenj",
+   "name": "شیر برنج",
+   "emoji": "🍮",
+   "color": "#F9EEDD",
+   "image": "",
+   "description": "دسر ساده و خوش‌طعم با برنج و شیر.",
+   "ingredients": [
+    {
+     "id": "rice",
+     "amount": "۱ پیمانه"
+    },
+    {
+     "id": "milk",
+     "amount": "۴ پیمانه"
+    },
+    {
+     "id": "sugar",
+     "amount": "۴ قاشق غذاخوری"
+    }
+   ],
+   "steps": [
+    "برنج را بشویید و در ۲ پیمانه آب کامل بپزید.",
+    "شیر را اضافه کنید و با حرارت ملایم ۳۰ دقیقه بپزید و مدام هم بزنید.",
+    "شکر را اضافه کنید و ۵ دقیقه دیگر بپزید.",
+    "در کاسه بریزید و سرد یا گرم میل کنید."
+   ]
+  }
+ ]
+}
+</script>
+<script>
+(function () {
+  'use strict';
+  var THEMES = [
+    { id: 'sabz', name: 'سبز', c1: '#2D6A4F', c2: '#F0B429' },
+    { id: 'anar', name: 'انار', c1: '#A8324A', c2: '#E9A23B' },
+    { id: 'firouzeh', name: 'فیروزه‌ای', c1: '#17797A', c2: '#F0B429' },
+    { id: 'bademjan', name: 'بادمجانی', c1: '#6B3E75', c2: '#F0B429' },
+    { id: 'zaferan', name: 'زعفرانی', c1: '#9A6200', c2: '#2D6A4F' },
+    { id: 'shab', name: 'شب', c1: '#15201A', c2: '#3FA679' }
+  ];
+  var root = document.documentElement;
+  var box = document.getElementById('theme-switch');
+  if (!box) return;
+
+  function current() { return root.getAttribute('data-theme') || 'sabz'; }
+  function apply(id) {
+    if (id === 'sabz') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', id);
+    try { localStorage.setItem('pantry.theme', id); } catch (e) {}
+    refresh();
+  }
+
+  var btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'theme-btn';
+  btn.setAttribute('aria-haspopup', 'true'); btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-controls', 'theme-panel');
+  var dot = document.createElement('span'); dot.className = 'swatch'; dot.style.width = dot.style.height = '20px';
+  var label = document.createElement('span'); label.textContent = 'رنگ‌بندی'; label.className = 'hide-sm';
+  btn.append(dot, label);
+
+  var panel = document.createElement('div');
+  panel.id = 'theme-panel'; panel.className = 'theme-panel'; panel.hidden = true;
+  panel.setAttribute('role', 'group'); panel.setAttribute('aria-label', 'انتخاب رنگ‌بندی');
+
+  var opts = THEMES.map(function (t) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'theme-opt'; b.dataset.id = t.id;
+    var sw = document.createElement('span'); sw.className = 'swatch';
+    sw.style.background = 'linear-gradient(135deg,' + t.c1 + ' 50%,' + t.c2 + ' 50%)';
+    var nm = document.createElement('span'); nm.textContent = t.name;
+    b.append(sw, nm);
+    b.addEventListener('click', function () { apply(t.id); });
+    panel.append(b);
+    return b;
+  });
+
+  function refresh() {
+    var cur = current();
+    var t = THEMES.filter(function (x) { return x.id === cur; })[0] || THEMES[0];
+    dot.style.background = 'linear-gradient(135deg,' + t.c1 + ' 50%,' + t.c2 + ' 50%)';
+    opts.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.id === cur)); });
+  }
+  function setOpen(open) {
+    panel.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+  }
+
+  btn.addEventListener('click', function () { setOpen(panel.hidden); });
+  document.addEventListener('click', function (e) { if (!box.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
+  });
+
+  box.append(btn, panel);
+  refresh();
+})();
+</script>
+<script>
+(() => {
+  'use strict';
+
+  /* ---------- State ---------- */
+  const STORAGE_KEY = 'pantry.selected.v1';
+  const state = {
+    ingredients: [],
+    byId: new Map(),
+    searchIndex: [], // { id, keys: [normalized names] }
+    recipes: [],
+    popular: [],
+    selected: [], // ingredient ids
+    loadError: null,
+  };
+  const app = document.getElementById('app');
+
+  /* ---------- Utils ---------- */
+  const toFa = (n) => String(n).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+  // Normalizes Persian/Arabic variants, half-spaces and spaces so "گوجه فرنگی" == "گوجه‌فرنگی"
+  const normalize = (s) =>
+    String(s || '')
+      .toLowerCase()
+      .replace(/ي/g, 'ی')
+      .replace(/ك/g, 'ک')
+      .replace(/[آأإ]/g, 'ا')
+      .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+      .replace(/[\u200c\u200d\u200e\u200f\s]+/g, '');
+
+  function el(tag, props, ...kids) {
+    const node = document.createElement(tag);
+    if (props) {
+      for (const [k, v] of Object.entries(props)) {
+        if (v == null || v === false) continue;
+        if (k === 'class') node.className = v;
+        else if (k === 'text') node.textContent = v;
+        else if (k.startsWith('on')) node.addEventListener(k.slice(2), v);
+        else node.setAttribute(k, v === true ? '' : v);
+      }
+    }
+    for (const kid of kids.flat()) {
+      if (kid == null || kid === false) continue;
+      node.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
+    }
+    return node;
+  }
+
+  const tone = (id) => 'tone-' + ((state.tones && state.tones.get(id)) || 0);
+  const recipeTone = (r) => 'tone-' + (state.recipes.indexOf(r) % 6);
+  const level = (p) => (p >= 75 ? 'high' : p >= 40 ? 'mid' : 'low');
+  const nameOf = (id) => (state.byId.get(id) || {}).name || id;
+
+  function saveSelected() {
+    try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state.selected)); } catch (_) { /* ignore */ }
+  }
+  function loadSelected() {
+    try {
+      const raw = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '[]');
+      if (Array.isArray(raw)) {
+        state.selected = [...new Set(raw)].filter((id) => state.byId.has(id));
+      }
+    } catch (_) { state.selected = []; }
+  }
+
+  /* ---------- Data ---------- */
+  async function loadData() {
+    const data = JSON.parse(document.getElementById('recipe-data').textContent);
+
+    if (!Array.isArray(data.ingredients) || !Array.isArray(data.recipes)) {
+      throw new Error('ساختار فایل داده نامعتبر است');
+    }
+
+    state.ingredients = data.ingredients.filter((i) => i && i.id && i.name);
+    state.byId = new Map(state.ingredients.map((i) => [i.id, i]));
+    state.searchIndex = state.ingredients.map((i) => ({
+      id: i.id,
+      keys: [i.name, ...(Array.isArray(i.aliases) ? i.aliases : [])].map(normalize),
+    }));
+    state.tones = new Map(state.ingredients.map((i, idx) => [i.id, idx % 6]));
+    state.popular = (data.popular || []).filter((id) => state.byId.has(id));
+
+    // Skip incomplete recipes instead of breaking the whole site
+    state.recipes = data.recipes.filter((r) => {
+      const ok =
+        r && r.id && r.name &&
+        Array.isArray(r.ingredients) && r.ingredients.length > 0 &&
+        r.ingredients.every((x) => x && state.byId.has(x.id)) &&
+        Array.isArray(r.steps) && r.steps.length > 0;
+      if (!ok) console.warn('Skipped incomplete recipe:', r && (r.id || r.name));
+      return ok;
+    });
+    if (state.recipes.length === 0) throw new Error('هیچ دستور پخت معتبری پیدا نشد');
+  }
+
+  /* ---------- Matching ---------- */
+  function matchRecipe(recipe, selectedSet) {
+    const total = recipe.ingredients.length;
+    const have = recipe.ingredients.filter((i) => selectedSet.has(i.id));
+    const missing = recipe.ingredients.filter((i) => !selectedSet.has(i.id));
+    return {
+      recipe, total, have, missing,
+      percent: Math.round((have.length / total) * 100),
+    };
+  }
+
+  function findRecipes(selectedIds) {
+    const set = new Set(selectedIds);
+    return state.recipes
+      .map((r) => matchRecipe(r, set))
+      .filter((m) => m.have.length > 0)
+      .sort((a, b) =>
+        b.percent - a.percent ||
+        b.have.length - a.have.length ||
+        a.missing.length - b.missing.length ||
+        a.recipe.name.localeCompare(b.recipe.name, 'fa'));
+  }
+
+  function suggest(text, limit = 6) {
+    const q = normalize(text);
+    if (!q) return [];
+    const starts = [], contains = [];
+    for (const item of state.searchIndex) {
+      if (state.selected.includes(item.id)) continue;
+      if (item.keys.some((k) => k.startsWith(q))) starts.push(item.id);
+      else if (item.keys.some((k) => k.includes(q))) contains.push(item.id);
+    }
+    return [...starts, ...contains].slice(0, limit);
+  }
+
+  function exactId(text) {
+    const q = normalize(text);
+    const hit = state.searchIndex.find((item) => item.keys.includes(q));
+    return hit ? hit.id : null;
+  }
+
+  /* ---------- Shared view pieces ---------- */
+  function thumb(recipe, large) {
+    const box = el('div', {
+      class: 'thumb' + (large ? ' large' : ''),
+      style: 'background:' + (/^#[0-9a-f]{3,8}$/i.test(recipe.color || '') ? recipe.color : '#E8EFE0'),
+      role: 'img',
+      'aria-label': recipe.name,
+    });
+    const showEmoji = () => { box.replaceChildren(document.createTextNode(recipe.emoji || '🍽️')); };
+    if (recipe.image) {
+      const img = el('img', { src: recipe.image, alt: '', loading: 'lazy' });
+      img.addEventListener('error', showEmoji);
+      box.append(img);
+    } else {
+      showEmoji();
+    }
+    return box;
+  }
+
+  function setPage(title, heading) {
+    document.title = title;
+    heading.setAttribute('tabindex', '-1');
+    requestAnimationFrame(() => { window.scrollTo(0, 0); heading.focus({ preventScroll: true }); });
+  }
+
+  /* ---------- Views ---------- */
+  function viewHome() {
+    const h1 = el('h1', { text: 'با موادی که داری چی بپزم؟' });
+    const input = el('input', {
+      id: 'ing-input', type: 'text', role: 'combobox', autocomplete: 'off',
+      'aria-autocomplete': 'list', 'aria-expanded': 'false', 'aria-controls': 'suggest-list',
+      placeholder: 'مثلاً تخم‌مرغ', enterkeyhint: 'done', maxlength: '40',
+    });
+    const list = el('ul', { class: 'suggest', id: 'suggest-list', role: 'listbox', hidden: true });
+    const msg = el('p', { class: 'msg', role: 'status' });
+    const chipsBox = el('ul', { class: 'chips', 'aria-label': 'مواد انتخاب‌شده' });
+    const quickBox = el('div', { class: 'quick-list' });
+    let active = -1;
+    let shown = [];
+
+    const setMsg = (text, isError) => {
+      msg.textContent = text || '';
+      msg.className = 'msg' + (isError ? ' error' : '');
+    };
+
+    function closeList() {
+      list.hidden = true; list.replaceChildren(); shown = []; active = -1;
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+    }
+
+    function openList(ids) {
+      shown = ids; active = -1;
+      list.replaceChildren(...ids.map((id, i) =>
+        el('li', {
+          role: 'option', id: 'opt-' + i, 'aria-selected': 'false', text: nameOf(id),
+          onmousedown: (e) => { e.preventDefault(); add(id); }, // mousedown keeps input focus
+        })));
+      list.hidden = ids.length === 0;
+      input.setAttribute('aria-expanded', String(ids.length > 0));
+    }
+
+    function highlight(i) {
+      active = i;
+      [...list.children].forEach((li, idx) => li.setAttribute('aria-selected', String(idx === i)));
+      if (i >= 0) input.setAttribute('aria-activedescendant', 'opt-' + i);
+      else input.removeAttribute('aria-activedescendant');
+    }
+
+    function renderChips() {
+      if (state.selected.length === 0) {
+        chipsBox.replaceChildren(el('li', { class: 'chips-empty', text: 'هنوز ماده‌ای اضافه نکرده‌ای.' }));
+      } else {
+        chipsBox.replaceChildren(...state.selected.map((id) =>
+          el('li', { class: 'chip ' + tone(id) },
+            nameOf(id),
+            el('button', {
+              type: 'button', 'aria-label': 'حذف ' + nameOf(id), text: '×',
+              onclick: () => remove(id),
+            }))));
+      }
+      quickBox.querySelectorAll('button').forEach((b) => { b.disabled = state.selected.includes(b.dataset.id); });
+    }
+
+    function add(id) {
+      if (!state.byId.has(id)) return;
+      if (state.selected.includes(id)) {
+        setMsg('«' + nameOf(id) + '» را قبلاً اضافه کرده‌ای.', true);
+      } else {
+        state.selected.push(id);
+        saveSelected();
+        setMsg('«' + nameOf(id) + '» اضافه شد.');
+      }
+      input.value = '';
+      closeList();
+      renderChips();
+      input.focus();
+    }
+
+    function remove(id) {
+      state.selected = state.selected.filter((x) => x !== id);
+      saveSelected();
+      setMsg('«' + nameOf(id) + '» حذف شد.');
+      renderChips();
+    }
+
+    function addFromText() {
+      const text = input.value.trim();
+      if (!text) { setMsg('نام یک ماده را بنویس.', true); return; }
+      const id = exactId(text);
+      if (id) { add(id); return; }
+      const options = suggest(text);
+      if (options.length === 1) { add(options[0]); return; }
+      openList(options);
+      setMsg(options.length
+        ? 'یکی از پیشنهادها را انتخاب کن.'
+        : 'این ماده در فهرست ما نیست. ماده‌ی دیگری را امتحان کن.', true);
+    }
+
+    input.addEventListener('input', () => {
+      setMsg('');
+      const q = input.value.trim();
+      if (q) openList(suggest(q)); else closeList();
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' && shown.length) { e.preventDefault(); highlight((active + 1) % shown.length); }
+      else if (e.key === 'ArrowUp' && shown.length) { e.preventDefault(); highlight((active - 1 + shown.length) % shown.length); }
+      else if (e.key === 'Escape') { closeList(); }
+      else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (active >= 0 && shown[active]) add(shown[active]); else addFromText();
+      }
+    });
+    input.addEventListener('blur', () => setTimeout(closeList, 100));
+
+    state.popular.forEach((id) => {
+      quickBox.append(el('button', {
+        type: 'button', class: 'quick-btn ' + tone(id), 'data-id': id, text: nameOf(id), onclick: () => add(id),
+      }));
+    });
+
+    const findBtn = el('button', {
+      type: 'button', class: 'btn big', text: 'پیدا کردن غذا',
+      onclick: () => {
+        if (state.selected.length === 0) {
+          setMsg('ابتدا حداقل یک ماده اولیه اضافه کن.', true);
+          input.focus();
+          return;
+        }
+        location.hash = '#/results';
+      },
+    });
+
+    renderChips();
+
+    const node = el('section', null,
+      h1,
+      el('p', { class: 'lead', text: 'مواد اولیه‌ای که در خانه داری وارد کن تا غذاهای مناسب را پیدا کنیم.' }),
+      el('div', { class: 'picker' },
+        el('div', { class: 'field' },
+          el('label', { for: 'ing-input', text: 'ماده‌ی اولیه' }),
+          el('div', { class: 'field-row' },
+            input,
+            el('button', { type: 'button', class: 'btn secondary', text: 'افزودن', onclick: addFromText })),
+          list),
+        msg,
+        chipsBox,
+        state.popular.length ? el('div', { class: 'quick' }, el('p', { text: 'مواد پرکاربرد' }), quickBox) : null,
+        findBtn));
+
+    setPage('با موادی که داری چی بپزم؟', h1);
+    return node;
+  }
+
+  function viewResults() {
+    const h1 = el('h1', { text: 'غذاهای مناسب با مواد شما' });
+    setPage('نتایج | چی بپزم؟', h1);
+
+    if (state.selected.length === 0) {
+      return el('section', null, h1,
+        el('div', { class: 'state-box' },
+          el('p', { text: 'ابتدا حداقل یک ماده اولیه اضافه کن.' }),
+          el('a', { class: 'btn', href: '#/', text: 'افزودن مواد' })));
+    }
+
+    const results = findRecipes(state.selected);
+    const head = el('div', { class: 'results-head' },
+      h1,
+      el('ul', { class: 'chips', 'aria-label': 'مواد انتخاب‌شده' },
+        state.selected.map((id) => el('li', { class: 'chip plain ' + tone(id), text: nameOf(id) }))),
+      el('div', { class: 'head-actions' },
+        el('a', { class: 'btn secondary', href: '#/', text: 'ویرایش مواد' })));
+
+    if (results.length === 0) {
+      return el('section', null, head,
+        el('div', { class: 'state-box' },
+          el('p', { text: 'غذای مناسبی با این مواد پیدا نشد. چند ماده دیگر اضافه کن و دوباره امتحان کن.' }),
+          el('a', { class: 'btn', href: '#/', text: 'افزودن مواد' })), aiBox());
+    }
+
+    const cards = results.map((m) => {
+      const r = m.recipe;
+      return el('li', null,
+        el('article', { class: 'card ' + recipeTone(r) },
+          thumb(r, false),
+          el('div', { class: 'card-body' },
+            el('h3', { text: r.name }),
+            el('p', { text: r.description || '' }),
+            el('div', { class: 'match-line' },
+              el('strong', { class: level(m.percent), text: toFa(m.percent) + '٪ تطابق' }),
+              el('span', { text: toFa(m.have.length) + ' مورد از ' + toFa(m.total) + ' ماده را داری' })),
+            el('div', { class: 'meter ' + level(m.percent), 'aria-hidden': 'true' },
+              el('span', { style: 'width:' + m.percent + '%' })),
+            m.missing.length
+              ? el('div', { class: 'missing' }, 'مواد کمبود: ', el('b', { text: m.missing.map((i) => nameOf(i.id)).join('، ') }))
+              : el('div', { class: 'complete', text: 'همه‌ی مواد را داری' }),
+            el('a', { class: 'btn', href: '#/recipe/' + encodeURIComponent(r.id), text: 'مشاهده دستور پخت' }))));
+    });
+
+    return el('section', null, head, el('ul', { class: 'grid' }, cards), aiBox());
+  }
+
+  function viewRecipe(id) {
+    const recipe = state.recipes.find((r) => r.id === id);
+    const backHref = state.selected.length ? '#/results' : '#/';
+    const backText = state.selected.length ? 'بازگشت به نتایج' : 'صفحه‌ی اصلی';
+
+    if (!recipe) {
+      const h1 = el('h1', { text: 'این دستور پخت پیدا نشد' });
+      setPage('دستور پخت پیدا نشد | چی بپزم؟', h1);
+      return el('section', null, h1,
+        el('div', { class: 'state-box' },
+          el('p', { text: 'ممکن است لینک اشتباه باشد یا این غذا حذف شده باشد.' }),
+          el('a', { class: 'btn', href: '#/', text: 'صفحه‌ی اصلی' })));
+    }
+
+    const h1 = el('h1', { text: recipe.name });
+    setPage(recipe.name + ' | چی بپزم؟', h1);
+    const hasSelection = state.selected.length > 0;
+    const m = hasSelection ? matchRecipe(recipe, new Set(state.selected)) : null;
+
+    return el('article', { class: 'recipe ' + recipeTone(recipe) },
+      el('a', { class: 'back', href: backHref, text: backText }),
+      thumb(recipe, true),
+      h1,
+      el('p', { class: 'lead', text: recipe.description || '' }),
+      m && el('div', { class: 'match-box ' + level(m.percent) },
+        el('strong', { text: toFa(m.percent) + '٪ مواد لازم را داری' }),
+        el('div', { class: 'meter ' + level(m.percent), style: 'margin-top:8px', 'aria-hidden': 'true' },
+          el('span', { style: 'width:' + m.percent + '%' }))),
+      el('h2', { text: 'مواد لازم' }),
+      el('ul', { class: 'ing-list' },
+        recipe.ingredients.map((i) => {
+          const has = hasSelection && state.selected.includes(i.id);
+          return el('li', { class: tone(i.id) },
+            hasSelection && el('span', { class: 'badge ' + (has ? 'have' : 'lack'), text: has ? 'موجود' : 'موجود نیست' }),
+            el('span', { class: 'ing-name', text: nameOf(i.id) }),
+            el('span', { class: 'ing-amount', text: i.amount || '' }));
+        })),
+      el('h2', { text: 'مراحل پخت' }),
+      el('ol', { class: 'steps' }, recipe.steps.map((s) => el('li', { text: s }))));
+  }
+
+  function viewError() {
+    const h1 = el('h1', { text: 'داده‌ها بارگذاری نشد' });
+    setPage('خطا | چی بپزم؟', h1);
+    return el('section', null, h1,
+      el('div', { class: 'state-box' },
+        el('p', { text: 'داده‌ی غذاها خوانده نشد. ساختار JSON داخل فایل را بررسی کن.' }),
+        el('button', { type: 'button', class: 'btn', text: 'تلاش دوباره', onclick: init })));
+  }
+
+  /* ---------- Router ---------- */
+  function route() {
+    const hash = location.hash || '#/';
+    let node;
+    if (state.loadError) node = viewError();
+    else if (hash.startsWith('#/results')) node = viewResults();
+    else if (hash.startsWith('#/recipe/')) {
+      let id = hash.slice('#/recipe/'.length);
+      try { id = decodeURIComponent(id); } catch (_) { /* keep raw */ }
+      node = viewRecipe(id);
+    } else node = viewHome();
+    app.replaceChildren(node);
+  }
+
+  async function init() {
+    app.replaceChildren(el('p', { class: 'loading', text: 'در حال بارگذاری…' }));
+    try {
+      await loadData();
+      state.loadError = null;
+      loadSelected();
+    } catch (err) {
+      console.error(err);
+      state.loadError = err;
+    }
+    route();
+  }
+
+
+  /* ---------- AI (optional) ---------- */
+  // برای استفاده‌ی شخصی می‌توانی مقدارها را همین‌جا بنویسی یا از دکمه‌ی «هوش مصنوعی» در هدر وارد کنی.
+  // توصیه: کلید را داخل فایل ننویس؛ هر کسی این فایل را ببیند کلید را هم می‌بیند.
+  const AI_DEFAULTS = {
+    baseUrl: 'https://api.gapgpt.app/v1',
+    model: 'gpt-4o-mini', // حدس من است؛ اگر خطا گرفتی نام مدل درست را جایگزین کن
+    apiKey: 'sk-4Sbq8MPUpDbQgESnKq7A7Pb1nzFThVEWjZU00PVqaKAaGcx6',
+  };
+  const AI_STORE = 'pantry.ai.v1';
+
+  function getAI() {
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem(AI_STORE) || '{}') || {}; } catch (_) { saved = {}; }
+    const pick = (k) => String(saved[k] || AI_DEFAULTS[k] || '').trim();
+    return { baseUrl: pick('baseUrl'), model: pick('model'), apiKey: pick('apiKey') };
+  }
+  function saveAI(cfg) {
+    try { localStorage.setItem(AI_STORE, JSON.stringify(cfg)); } catch (_) { /* ignore */ }
+  }
+
+  let aiDialog = null;
+  function openAISettings(note) {
+    if (!aiDialog) aiDialog = buildAIDialog();
+    aiDialog.fill(getAI(), note);
+    aiDialog.node.showModal();
+  }
+
+  function buildAIDialog() {
+    const dlg = el('dialog', { class: 'ai-dialog', 'aria-labelledby': 'ai-title' });
+    const field = (id, label, type, ph) => {
+      const input = el('input', { id, type, dir: 'ltr', autocomplete: 'off', spellcheck: 'false', placeholder: ph });
+      return { input, row: el('div', { class: 'ai-row' }, el('label', { for: id, text: label }), input) };
+    };
+    const url = field('ai-url', 'آدرس پایه‌ی API', 'url', 'https://example.com/v1');
+    const model = field('ai-model', 'نام مدل', 'text', 'model-name');
+    const key = field('ai-key', 'کلید API', 'password', 'sk-...');
+    const msg = el('p', { class: 'msg', role: 'status' });
+
+    const setMsg = (t, err) => { msg.textContent = t || ''; msg.className = 'msg' + (err ? ' error' : ''); };
+    const read = () => ({ baseUrl: url.input.value.trim(), model: model.input.value.trim(), apiKey: key.input.value.trim() });
+
+    const saveBtn = el('button', {
+      type: 'button', class: 'btn', text: 'ذخیره',
+      onclick: () => {
+        const cfg = read();
+        if (!/^https:\/\//i.test(cfg.baseUrl) && !/^http:\/\/(localhost|127\.0\.0\.1)/i.test(cfg.baseUrl)) {
+          setMsg('آدرس باید با https:// شروع شود.', true); return;
+        }
+        if (!cfg.model || !cfg.apiKey) { setMsg('نام مدل و کلید را وارد کن.', true); return; }
+        saveAI(cfg);
+        dlg.close();
+      },
+    });
+    const clearBtn = el('button', {
+      type: 'button', class: 'btn secondary', text: 'پاک کردن کلید',
+      onclick: () => { key.input.value = ''; saveAI({ ...read(), apiKey: '' }); setMsg('کلید پاک شد.'); },
+    });
+    const cancelBtn = el('button', { type: 'button', class: 'btn secondary', text: 'بستن', onclick: () => dlg.close() });
+
+    dlg.append(
+      el('h2', { id: 'ai-title', text: 'تنظیمات هوش مصنوعی' }),
+      el('p', { class: 'hint', text: 'اطلاعات فقط در مرورگر همین دستگاه ذخیره می‌شود و مستقیم به آدرس بالا ارسال می‌شود. سرویس باید با قالب OpenAI (chat/completions) سازگار باشد.' }),
+      url.row, model.row, key.row, msg,
+      el('div', { class: 'ai-actions' }, saveBtn, clearBtn, cancelBtn));
+    document.body.append(dlg);
+
+    return {
+      node: dlg,
+      fill(cfg, note) {
+        url.input.value = cfg.baseUrl; model.input.value = cfg.model; key.input.value = cfg.apiKey;
+        setMsg(note || '', !!note);
+      },
+    };
+  }
+
+  function aiError(code, extra) {
+    const e = new Error(code); e.code = code; e.extra = extra; return e;
+  }
+
+  function parseAIRecipes(text, selectedNames) {
+    const t = String(text || '');
+    const a = t.indexOf('{'), b = t.lastIndexOf('}');
+    if (a < 0 || b <= a) throw aiError('PARSE');
+    let obj;
+    try { obj = JSON.parse(t.slice(a, b + 1)); } catch (_) { throw aiError('PARSE'); }
+    const list = Array.isArray(obj.recipes) ? obj.recipes : [];
+    const sel = selectedNames.map(normalize);
+    const out = list
+      .filter((r) => r && typeof r.name === 'string' && Array.isArray(r.steps) && r.steps.length && Array.isArray(r.ingredients))
+      .slice(0, 5)
+      .map((r) => ({
+        name: r.name.slice(0, 80),
+        description: String(r.description || '').slice(0, 300),
+        steps: r.steps.map((x) => String(x).slice(0, 400)).slice(0, 20),
+        ingredients: r.ingredients
+          .map((i) => (typeof i === 'string' ? { name: i, amount: '' } : { name: String((i && i.name) || ''), amount: String((i && i.amount) || '') }))
+          .filter((i) => i.name)
+          .slice(0, 30)
+          .map((i) => {
+            const n = normalize(i.name);
+            return { name: i.name.slice(0, 60), amount: i.amount.slice(0, 40), have: sel.some((x) => n.includes(x) || x.includes(n)) };
+          }),
+      }));
+    if (!out.length) throw aiError('PARSE');
+    return out;
+  }
+
+  async function askAI(names) {
+    const cfg = getAI();
+    if (!cfg.apiKey || !cfg.baseUrl || !cfg.model) throw aiError('CONFIG');
+    const system =
+      'تو یک سرآشپز ایرانی هستی. فقط و فقط یک شیء JSON برگردان (بدون توضیح و بدون بلاک کد) با این ساختار: ' +
+      '{"recipes":[{"name":"","description":"","ingredients":[{"name":"","amount":""}],"steps":[""]}]}. ' +
+      'سه غذای ساده پیشنهاد بده که بیشترین تطابق را با مواد کاربر دارند. نمک، روغن و آب را می‌توان فرض کرد ولی در مواد بنویس. همه‌چیز را به فارسی بنویس.';
+    let res;
+    try {
+      res = await fetch(cfg.baseUrl.replace(/\/+$/, '') + '/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + cfg.apiKey },
+        body: JSON.stringify({
+          model: cfg.model,
+          temperature: 0.7,
+          messages: [
+            { role: 'system', content: system },
+            { role: 'user', content: 'مواد موجود: ' + names.join('، ') },
+          ],
+        }),
+      });
+    } catch (_) { throw aiError('NETWORK'); }
+    if (res.status === 401 || res.status === 403) throw aiError('AUTH');
+    if (!res.ok) throw aiError('HTTP', res.status);
+    let data;
+    try { data = await res.json(); } catch (_) { throw aiError('PARSE'); }
+    const text = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+    return parseAIRecipes(text, names);
+  }
+
+  function aiErrorText(err) {
+    switch (err && err.code) {
+      case 'CONFIG': return 'تنظیمات هوش مصنوعی کامل نیست.';
+      case 'AUTH': return 'کلید API پذیرفته نشد. کلید را در تنظیمات بررسی کن.';
+      case 'NETWORK': return 'اتصال به سرویس برقرار نشد. آدرس API را بررسی کن. ممکن است سرویس اجازه‌ی درخواست مستقیم از مرورگر (CORS) را نداده باشد.';
+      case 'HTTP': return 'سرویس خطا برگرداند (کد ' + toFa(err.extra) + '). نام مدل و آدرس را بررسی کن.';
+      default: return 'پاسخ مدل قابل خواندن نبود. دوباره امتحان کن.';
+    }
+  }
+
+  function aiCard(r) {
+    return el('article', { class: 'card ai-card tone-1' },
+      el('div', { class: 'card-body' },
+        el('h3', { text: r.name }),
+        r.description && el('p', { text: r.description }),
+        el('h2', { text: 'مواد لازم' }),
+        el('ul', { class: 'ing-list' }, r.ingredients.map((i) =>
+          el('li', null,
+            el('span', { class: 'badge ' + (i.have ? 'have' : 'lack'), text: i.have ? 'موجود' : 'موجود نیست' }),
+            el('span', { class: 'ing-name', text: i.name }),
+            el('span', { class: 'ing-amount', text: i.amount })))),
+        el('h2', { text: 'مراحل پخت' }),
+        el('ol', { class: 'steps' }, r.steps.map((x) => el('li', { text: x })))));
+  }
+
+  function aiBox() {
+    const out = el('div', { class: 'ai-out' });
+    const msg = el('p', { class: 'msg', role: 'status' });
+    const label = 'پیشنهاد با هوش مصنوعی';
+    const btn = el('button', { type: 'button', class: 'btn', text: label });
+    btn.addEventListener('click', async () => {
+      const cfg = getAI();
+      if (!cfg.apiKey || !cfg.baseUrl || !cfg.model) { openAISettings('آدرس، نام مدل و کلید را وارد کن.'); return; }
+      btn.disabled = true; btn.textContent = 'در حال دریافت…';
+      msg.className = 'msg'; msg.textContent = ''; out.replaceChildren();
+      try {
+        const list = await askAI(state.selected.map(nameOf));
+        out.replaceChildren(...list.map(aiCard));
+      } catch (err) {
+        console.error(err);
+        msg.className = 'msg error'; msg.textContent = aiErrorText(err);
+      } finally {
+        btn.disabled = false; btn.textContent = label;
+      }
+    });
+    return el('section', { class: 'ai-box' },
+      el('h2', { text: 'پیشنهاد هوش مصنوعی' }),
+      el('p', { class: 'lead', text: 'غذاهایی که در فهرست ما نیستند را هم می‌توانی با هوش مصنوعی و مواد خودت بگیری.' }),
+      btn, msg, out);
+  }
+
+  function mountAIButton() {
+    const tools = document.getElementById('header-tools');
+    if (!tools) return;
+    tools.insertBefore(
+      el('button', { type: 'button', class: 'theme-btn', 'aria-label': 'تنظیمات هوش مصنوعی', onclick: () => openAISettings() },
+        el('span', { 'aria-hidden': 'true', text: '⚙' }),
+        el('span', { class: 'hide-sm', text: 'هوش مصنوعی' })),
+      tools.firstChild);
+  }
+
+  window.addEventListener('hashchange', route);
+  init();
+  mountAIButton();
+
+})();
+
+</script>
+</body>
+</html>
